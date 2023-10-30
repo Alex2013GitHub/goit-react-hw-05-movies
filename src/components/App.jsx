@@ -1,24 +1,40 @@
-import { NavLink, Route, Routes } from 'react-router-dom';
-import Home from '../pages/Home';
-import Movies from '../pages/Movies';
+import { Route, Routes } from 'react-router-dom';
 
-export const App = () => {
+import { Suspense } from 'react';
+import { ProgressBar } from 'react-loader-spinner';
+import MovieDetails from 'pages/MovieDetails';
+
+const App = () => {
   return (
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/movies">Movies</NavLink>
-          </li>
-        </ul>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-      </Routes>
-    </div>
+    <Box maxWidth={1200} paddingLeft={16} paddingRight={16} margin="0 auto">
+      <Navigation />
+
+      <Suspense
+        fallback={
+          <ProgressBar
+            height="80"
+            width="80"
+            ariaLabel="progress-bar-loading"
+            wrapperStyle={{}}
+            wrapperStyle="progress-bar-wrapper"
+            borderColor="navy"
+            barColor="orangerd"
+          />
+        }
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route ath="/movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+        </Routes>
+      </Suspense>
+
+      <GlobalStyle />
+    </Box>
   );
 };
+
+export default App;
