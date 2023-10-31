@@ -1,39 +1,38 @@
-import { useState, useEffect } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import MovieList from 'components/MovieList';
-import SearchBar from 'components/SearchBar';
-import { getMovieByQuery } from 'services/Api';
+import { useState } from 'react';
+import Loader from 'components/Loader/Loader';
+import Form from 'components/SearchForm/SearchForm';
+import EditorList from 'pages/EditorList/EditorList';
+import { fetchSearchByKeyword } from 'services/Api';
 
 const Movies = () => {
-  const [movies, setMovies] = useState([]);
+  const [searchFilms, setSearchFilms] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [noMoviesText, setNoMoviesText] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const queryParams = searchParams.get('query') ?? '';
+  const searchMovies = queryMovie => {
+    setLoading(true);
 
-  const [query, setQuery] = useState(() => setQuery);
-  const location = useLocation();
-
-  const updateQueryParams = query => {
-    const newSearchParams = !query ? {} : { query };
-    setSearchParams(newSearchParams);
+    fetchSearchByKeyword(queryMovie)
+      .then(searchResults => {
+        setSearchFilms(searchResults);
+        setNoMoviesText(searchResults.length === 0);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
-
-  useEffect(() => {
-    if (query) {
-      getMovieByQuery(query)
-        .then(({ results }) => setMovies(results))
-        .catch(console.log);
-    }
-  }, [query]);
 
   return (
     <main>
-      <SearchBar
-        query={queryParams}
-        onChange={updateQueryParams}
-        onSubmit={setQuery}
-      />
-      {!movies.length && <MovieList movies={movies} location={location} />}
+      <Form searchMovies={searchMovies} />
+      {loading && <Loader />}
+      {noMoviesText && (
+        <p>There is no movies with this request. Please, try again</p>
+      )}
+      {searchFilms && <EditorList films={searchFilms} />}
     </main>
   );
 };

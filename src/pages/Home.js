@@ -1,24 +1,37 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import MovieList from 'components/MovieList';
-import { getTrends } from 'services/Api';
+import Loader from 'components/Loader/Loader';
+import EditorList from 'pages/EditorList/EditorList';
+import { fetchTrending } from 'services/Api';
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
-  const location = useLocation();
+  const [films, setFilms] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getTrends().then(({ results }) => setMovies(results));
-  }, []);
+    const fetchTrendingFilms = () => {
+      setLoading(true);
 
-  if (!movies.length) {
-    return;
-  }
+      fetchTrending()
+        .then(trendingFilms => {
+          setFilms(trendingFilms);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+
+    fetchTrendingFilms();
+  }, []);
 
   return (
     <main>
-      <h1 style={{ paddingBottom: '16px' }}>Tranding today</h1>
-      <MovieList movies={movies} location={location} />
+      <h1>Trending today</h1>
+      <EditorList films={films} />
+
+      {loading && <Loader />}
     </main>
   );
 };

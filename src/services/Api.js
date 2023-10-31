@@ -1,65 +1,38 @@
 import axios from 'axios';
+
+axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
+
 const API_KEY = 'b8e97797a63a229ee5b42773102304ac';
 
-export const POSTER_CONFIG = {
-  baseUrl: 'http://image.tmdb.org/t/p/',
-  posterSizes: ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original'],
+export const fetchTrending = async () => {
+  const response = await axios.get(`trending/movie/day?api_key=${API_KEY}`);
+  return response.data.results;
 };
 
-const getMovies = async ({ queryType, pathParams, query }) => {
-  const config = {
-    baseURL: 'https://api.themoviedb.org/3',
-    params: {
-      api_key: API_KEY,
-      query,
-    },
-  };
-
-  const { data } = await axios.get(`${queryType}${pathParams}`, config);
-  return data;
+export const fetchSearchByKeyword = async keyword => {
+  const response = await axios.get(
+    `search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${keyword}`
+  );
+  return response.data.results;
 };
 
-export const getTrends = () => {
-  const queryType = '/trending';
-
-  const mediaType = 'movie';
-  const timeWindow = 'week';
-
-  const pathParams = '/'.concat(mediaType, '/', timeWindow);
-
-  return getMovies({ queryType, pathParams });
+export const fetchMovieDetails = async movieId => {
+  const response = await axios.get(
+    `movie/${movieId}?api_key=${API_KEY}&language=en-US`
+  );
+  return response.data;
 };
 
-export const getMovieById = id => {
-  const queryType = '/movie';
-  const pathParams = `/${id}`;
-
-  return getMovies({ queryType, pathParams });
+export const fetchActors = async movieId => {
+  const response = await axios.get(
+    `movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`
+  );
+  return response.data.cast;
 };
 
-export const getMovieByQuery = query => {
-  const queryType = '/search';
-  const pathParams = `/movie`;
-
-  return getMovies({ queryType, pathParams, query });
-};
-
-export const getMovieCreditsById = id => {
-  const queryType = '/movie';
-  const pathParams = `/${id}/credits`;
-
-  return getMovies({ queryType, pathParams });
-};
-
-export const getMovieReviewsById = id => {
-  const queryType = '/movie';
-  const pathParams = `/${id}/reviews`;
-
-  return getMovies({ queryType, pathParams });
-};
-
-export const getApiConfig = () => {
-  const pathParams = '';
-
-  return getMovies({ queryType: '/configuration', pathParams });
+export const fetchReviews = async movieId => {
+  const response = await axios.get(
+    `movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=1`
+  );
+  return response.data.results;
 };

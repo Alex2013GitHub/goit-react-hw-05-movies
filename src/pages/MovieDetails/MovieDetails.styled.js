@@ -1,59 +1,54 @@
-import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import styled from '@emotion/styled';
 
-export const BackLink = styled(NavLink)`
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-
-  margin-bottom: 8px;
-  padding: 8px 12px;
-
-  border: 1px solid #dddddd;
-  border-radius: 4px;
-  outline: none;
-
-  color: navy;
-  background-color: #dddddd;
-  font-weight: ${p => p.theme.fontWeights.medium};
-  text-decoration: none;
-
-  :hover {
-    border: 1px solid #cccccc;
-
-    color: orangered;
-    background-color: white;
-  }
-`;
-
-export const AddInfoWrapper = styled.section`
-  padding-top: 8px;
-  border-top: 1px solid #cccccc;
-`;
-
-export const SubTitle = styled.h3`
-  margin-top: 8px;
-`;
-
-export const Nav = styled.nav`
+export const Container = styled.div`
   display: flex;
-  align-items: center;
-  gap: ${p => p.theme.spaces[4]}px;
-  padding: 8px;
+  margin: 24px;
+  gap: 24px;
 `;
 
-export const Link = styled(NavLink)`
-  padding: ${p => p.theme.spaces[3]}px;
-  border-radius: 4px;
-  font-weight: ${p => p.theme.fontWeights.medium};
-  color: navy;
-  text-decoration: none;
+export const List = styled.ul`
+  display: inline-flex;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+`;
 
-  &.active {
-    background-color: #dddddd;
+export const ListInfo = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+`;
+
+export const LinkInfo = styled(Link)`
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  color: #191d1e;
+
+  &:hover {
+    color: blue;
   }
-  :hover:not(.active),
-  :focus-visible:not(.active) {
-    color: orangered;
+`;
+
+export const Button = styled.button`
+  padding: 8px 8px;
+  font: inherit;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 3px solid #191d1e;
+  color: #191d1e;
+  font-weight: 600;
+  font-size: 20px;
+
+  &:hover {
+    color: blue;
+    border: 3px solid blue;
   }
 `;
