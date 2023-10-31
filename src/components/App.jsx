@@ -1,8 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { Suspense } from 'react';
+import Navigation from './Navigation';
+import { Box } from './Box';
+import { GlobalStyle } from './GlobalStyle';
+import { lazy, Suspense } from 'react';
 import { ProgressBar } from 'react-loader-spinner';
-import MovieDetails from 'pages/MovieDetails';
+
+const Home = lazy(() => import('pages/Home'));
+const Movies = lazy(() => import('pages/Movies'));
+const MovieDetails = lazy(() => import('pages/MovieDetails'));
+const Cast = lazy(() => import('components/Cast'));
+const Reviews = lazy(() => import('components/Reviews'));
 
 const App = () => {
   return (
@@ -16,16 +24,16 @@ const App = () => {
             width="80"
             ariaLabel="progress-bar-loading"
             wrapperStyle={{}}
-            wrapperStyle="progress-bar-wrapper"
+            wrapperClass="progress-bar-wrapper"
             borderColor="navy"
-            barColor="orangerd"
+            barColor="orangered"
           />
         }
       >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
-          <Route ath="/movies/:movieId" element={<MovieDetails />}>
+          <Route path="/movies/:movieId" element={<MovieDetails />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />
           </Route>
@@ -36,5 +44,4 @@ const App = () => {
     </Box>
   );
 };
-
 export default App;

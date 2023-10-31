@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import MovieList from 'components/MovieList';
+import SearchBar from 'components/SearchBar';
+import { getMovieByQuery } from 'services/Api';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -30,7 +33,7 @@ const Movies = () => {
         onChange={updateQueryParams}
         onSubmit={setQuery}
       />
-      {!movies.length && <MoviesList movies={movies} location={location} />}
+      {!movies.length && <MovieList movies={movies} location={location} />}
     </main>
   );
 };

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import MoviesList from '';
-// import Movies from './Movies';
+import MovieList from 'components/MovieList';
+import { getTrends } from 'services/Api';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <main>
       <h1 style={{ paddingBottom: '16px' }}>Tranding today</h1>
-      <MoviesList movies={movies} location={location} />
+      <MovieList movies={movies} location={location} />
     </main>
   );
 };

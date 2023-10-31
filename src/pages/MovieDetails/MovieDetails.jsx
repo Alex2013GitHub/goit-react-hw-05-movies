@@ -1,6 +1,7 @@
 import { Suspense, useState, useEffect } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
-// import MovieDetailsBasic from '../Movies';
+import MovieDetailsBasic from 'components/MovieDetailsBasic';
+import { getMovieById } from 'services/Api';
 import { BsArrowLeft } from 'react-icons/bs';
 import {
   BackLink,
@@ -15,7 +16,7 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
 
   const { movieId } = useParams();
-  const Location = useLocation();
+  const location = useLocation();
 
   useEffect(() => {
     getMovieById(movieId).then(data => setMovie(data));
