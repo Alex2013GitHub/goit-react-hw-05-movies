@@ -34,6 +34,7 @@ export const LinkInfo = styled(Link)`
 
   &:hover {
     color: blue;
+    transition-delay: 0.25s;
   }
 `;
 
@@ -42,13 +43,14 @@ export const Button = styled.button`
   font: inherit;
   cursor: pointer;
   border-radius: 4px;
-  border: 3px solid #191d1e;
+  border: 2px solid #191d1e;
   color: #191d1e;
-  font-weight: 600;
-  font-size: 20px;
+  font-weight: 450;
+  font-size: 16px;
 
   &:hover {
     color: blue;
-    border: 3px solid blue;
+    border: 2px solid blue;
+    transition-delay: 0.25s;
   }
 `;

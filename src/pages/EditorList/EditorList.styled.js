@@ -17,5 +17,6 @@ export const MovieLink = styled(Link)`
 
   &:hover {
     color: blue;
+    transition-delay: 0.25s;
   }
 `;

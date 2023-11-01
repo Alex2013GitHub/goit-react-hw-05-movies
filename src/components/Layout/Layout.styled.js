@@ -25,5 +25,6 @@ export const Link = styled(NavLink)`
 
   &:hover {
     color: blue;
+    transition-delay: 0.25s;
   }
 `;

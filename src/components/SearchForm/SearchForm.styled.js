@@ -14,12 +14,14 @@ export const Input = styled.input`
   font-weight: 600;
   font-size: 16px;
   margin-right: 10px;
+  width: 450px;
 
   outline: none;
 
   &:hover {
     color: blue;
     border: 2px solid blue;
+    transition-delay: 0.25s;
   }
 `;
 
@@ -36,5 +38,6 @@ export const Button = styled.button`
   &:hover {
     color: blue;
     border: 2px solid blue;
+    transition-delay: 0.25s;
   }
 `;
