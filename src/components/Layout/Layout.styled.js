@@ -23,7 +23,8 @@ export const Link = styled(NavLink)`
   font-size: 22px;
   color: #191d1e;
 
-  &:hover {
+  &:hover,
+  active {
     color: blue;
     transition-delay: 0.25s;
   }
