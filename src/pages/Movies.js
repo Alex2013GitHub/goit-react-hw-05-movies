@@ -39,7 +39,7 @@ const Movies = () => {
     <main>
       <Form searchMovies={handleSearch} initialQuery={queryMovie} />
       {loading && <Loader />}
-      {searchFilms.length === 0 && (
+      {searchFilms.length < 0 && (
         <p>There are no movies with this request. Please try again.</p>
       )}
       {searchFilms.length > 0 && <EditorList films={searchFilms} />}
